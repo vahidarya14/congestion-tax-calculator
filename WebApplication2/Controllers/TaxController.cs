@@ -1,4 +1,3 @@
-using congestion.calculator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2.Controllers
@@ -17,7 +16,7 @@ namespace WebApplication2.Controllers
             else
                 throw new Exception("nor implemented");
 
-            return congestionTaxCalculator.GetTax(new Vehicle(dto.vehicle), dto.dates);
+            return congestionTaxCalculator.GetTax(dto.vehicle, dto.dates);
         }
 
     }

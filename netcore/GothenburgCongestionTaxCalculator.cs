@@ -116,15 +116,14 @@ public class GothenburgCongestionTaxCalculator : ICongestionTaxCalculator
         return false;
     }
 
-
+    public enum TollFreeVehicles
+    {
+        Emergency,
+        Bus,
+        Diplomat,
+        Motorcycle,
+        Military,
+        Foreign
+    }
 }
 
-public enum TollFreeVehicles
-{
-    Emergency,
-    Bus,
-    Diplomat,
-    Motorcycle,
-    Military,
-    Foreign
-}
