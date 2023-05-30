@@ -15,4 +15,15 @@ namespace congestion.calculator
 
         public string GetVehicleType() => VehicleType.ToString();
     }
+
+    //---second way--------------------Polymorphism In Web API
+    public class Car: Vehicle
+    {
+        public Car():base(VehicleTypes.Car){}
+    }
+
+    public class Tractor : Vehicle
+    {
+        public Tractor() : base(VehicleTypes.Tractor) { }
+    }
 }

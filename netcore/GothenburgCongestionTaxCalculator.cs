@@ -22,7 +22,7 @@ public class GothenburgCongestionTaxCalculator : ICongestionTaxCalculator
         int totalFee = 0;
         foreach (DateTime date in dates)
         {
-            int nextFee = GetTollFee( vehicle, date);
+            int nextFee = GetTollFee(vehicle, date);
             Temp.Add((date, nextFee));
             //int tempFee = GetTollFee(intervalStart, vehicle);
 
@@ -59,19 +59,6 @@ public class GothenburgCongestionTaxCalculator : ICongestionTaxCalculator
         return totalFee;
     }
 
-    private bool IsTollFreeVehicle(Vehicle vehicle)
-    {
-        if (vehicle == null) return false;
-
-        var vehicleType = vehicle.GetVehicleType();
-        return vehicleType.Equals(TollFreeVehicles.Motorcycle.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Bus.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Emergency.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Diplomat.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Foreign.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Military.ToString());
-    }
-
     int GetTollFee(Vehicle vehicle, DateTime date)
     {
         if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
@@ -90,6 +77,22 @@ public class GothenburgCongestionTaxCalculator : ICongestionTaxCalculator
         else if (hour == 18 && minute >= 0 && minute <= 29) return 8;
         else return 0;
     }
+
+    private bool IsTollFreeVehicle(Vehicle vehicle)
+    {
+        if (vehicle == null) return false;
+
+        return new List<VehicleTypes>
+        {
+             VehicleTypes.Emergency,
+             VehicleTypes.Bus,
+             VehicleTypes.Diplomat,
+             VehicleTypes.Motorcycle,
+             VehicleTypes.Military,
+             VehicleTypes.Foreign
+        }.Any(x => x == vehicle.VehicleType);
+    }
+
 
     private bool IsTollFreeDate(DateTime date)
     {
@@ -116,7 +119,7 @@ public class GothenburgCongestionTaxCalculator : ICongestionTaxCalculator
         return false;
     }
 
-    public enum TollFreeVehicles
+    enum TollFreeVehicles
     {
         Emergency,
         Bus,
